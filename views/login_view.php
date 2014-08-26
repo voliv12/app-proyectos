@@ -3,16 +3,16 @@
   <head>
     <base href= "<?php echo $this->config->item('base_url'); ?>">
     <meta charset="utf-8">
-    <title>Login &middot; Información posgrados</title>
+    <title>Login &middot; Proyectos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="VOG" content="">
 
-    <script type='text/javascript' src='js/jquery-1.8.2.js'></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-    <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-     <link href=" assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href=" assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"/>
+    <script type='text/javascript' src='../assets/js/jquery-1.8.2.js'></script>
+    <script type="text/javascript" src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    <link href="../assets/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+     <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href=" ../assets/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"/>
 
     <!-- Le styles -->
 
@@ -74,7 +74,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Instituto de Ciencias de la Salud - Sistema de Información de Posgrados</a>
+          <a class="brand" href="#">Instituto de Ciencias de la Salud - Sistema para la Evaluación de Proyectos</a>
 
 
         </div>
@@ -86,20 +86,7 @@
     <div class="container">
 
       <form class="form-signin" action="index.php/login/validar_usuario" method="POST">
-
-          <h4 class="form-signin-heading">Autentificación</h4>
-        <div class="radio">
-        <label>
-          <input type="radio" name="tipo_usuario" id="optionsRadios1" value="alumno" checked>
-          Alumno
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="tipo_usuario" id="optionsRadios2" value="personal">
-          Personal
-        </label>
-      </div>
+        <h4 class="form-signin-heading">Autentificación</h4>
         <input type="text" name="usuario" class="input-block-level" placeholder="Usuario">
         <input type="password" name="password" class="input-block-level" placeholder="Contraseña">
         <button class="btn btn-large btn-primary" type="submit">Entrar</button>
