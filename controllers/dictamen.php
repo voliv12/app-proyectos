@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  
-class Proyecto extends CI_Controller {
+class Dictamen extends CI_Controller {
  
     function __construct()
     {
@@ -18,20 +18,17 @@ class Proyecto extends CI_Controller {
     public function index()
     {
      if ($this->session->userdata('logged_in'))
-      {
+     {
         $crud = new grocery_CRUD();
-        $crud->set_table('proyecto');
-        $crud->set_subject('Proyecto');
-        $crud->field_type('numpersonal', 'hidden',$this->numpersonal); 
-        $output = $crud->display_as('folio','Folio')
-                       ->display_as('nomproyec','Nombre del Proyecto') 
-                       ->display_as('fecha_registro','Fecha de Registro'); 
-        $crud->unset_texteditor('nomproyec','full_text');                             
+        $crud->set_table('proyecto_comite');
+        $crud->set_subject('Dictamen');
+        $output = $crud->display_as('proyecto_idproyecto','Nombre del proyecto')->display_as('comite_idcomite','Nombre del comite')->display_as('dictamen','Dictamen')->display_as('fecha_dictamen','Fecha del Dictamen')->display_as('archivo_dictamen','Dictamen'); 
+        
         $output = $crud->render();
-        $this->_example_output($output);
+        $this->_example_output($output);   
       }
-     else { redirect('login');
-             }   
+             else { redirect('login');
+             }
     }
  
    
@@ -39,7 +36,7 @@ class Proyecto extends CI_Controller {
     function _example_output($output = null)
  
     {
-        $output->titulo_tabla = "Registro de Proyectos";
+        $output->titulo_tabla = "Registro de Comite";
         $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
         $this->load->view('plantilla_view', $datos_plantilla);  
     }

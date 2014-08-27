@@ -16,7 +16,8 @@ class Detalles extends CI_Controller {
     }
  
     public function index()
-    {
+    { if ($this->session->userdata('logged_in'))
+      {
         $this->grocery_crud->set_table('detalles_proyecto');
         $this->grocery_crud->set_subject('detalles');
         $this->grocery_crud->required_fields('proyecto_idproyecto','descripcion','objetivo','justificacion');
@@ -28,6 +29,9 @@ class Detalles extends CI_Controller {
         
         $output = $this->grocery_crud->render();
         $this->_example_output($output);   
+      }
+             else { redirect('login');
+             }    
     }
  
    
@@ -37,7 +41,7 @@ class Detalles extends CI_Controller {
     {
         $output->titulo_tabla = "Detalles del Proyecto";
         $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
-        $this->load->view('principal_view', $datos_plantilla);  
+        $this->load->view('plantilla_view', $datos_plantilla);  
     }
 }
  

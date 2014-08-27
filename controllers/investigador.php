@@ -17,19 +17,23 @@ class Investigador extends CI_Controller {
  
     public function index()
     {
-        $this->grocery_crud->set_table('investigador');
-        $this->grocery_crud->set_subject('Investigador');
-        $this->grocery_crud->required_fields('numpersonal','nombre','password','correo');
+        $crud = new grocery_CRUD();
+        $crud->set_table('investigador');
+        $crud->set_subject('Investigador');
+        $crud->required_fields('numpersonal','nombre','password','correo');
         
-        $output = $this->grocery_crud->display_as('nombre','Nombre')
+        $output = $crud->display_as('nombre','Nombre')
                                      ->display_as('possword','Contraseña')
                                      ->display_as('nomproyec','Nombre del Proyecto') 
                                      ->display_as('correo','Correo')
                                      ->display_as('integrante_comite','Integrante del comite')
                                      ->display_as('perfil_comite','Perfil dentro del comite'); 
                                      
-        $output = $this->grocery_crud->render();
-        $this->_example_output($output);   
+        $output = $crud->render();
+        $this->_example_output($output);  
+      }
+             else { redirect('login');
+             } 
     }
  
    
@@ -39,7 +43,7 @@ class Investigador extends CI_Controller {
     {
         $output->titulo_tabla = "Registro de Investigador";
         $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
-        $this->load->view('principal_view', $datos_plantilla);  
+        $this->load->view('plantilla_view', $datos_plantilla);  
     }
 }
  

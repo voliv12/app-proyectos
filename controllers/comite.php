@@ -17,13 +17,19 @@ class Comite extends CI_Controller {
  
     public function index()
     {
-        $this->grocery_crud->set_table('comite');
-        $this->grocery_crud->set_subject('comite');
-        $this->grocery_crud->required_fields('nombre_comite');
-         $output = $this->grocery_crud->display_as('nombre_comite','Nombre del comite'); 
+     if ($this->session->userdata('logged_in'))
+     {
+        $crud = new grocery_CRUD();
+        $crud->set_table('comite');
+        $crud->set_subject('comite');
+        $crud->required_fields('nombre_comite');
+         $output = $crud->display_as('nombre_comite','Nombre del comite'); 
         
-        $output = $this->grocery_crud->render();
+        $output = $crud->render();
         $this->_example_output($output);   
+      }
+             else { redirect('login');
+             }
     }
  
    
@@ -33,7 +39,7 @@ class Comite extends CI_Controller {
     {
         $output->titulo_tabla = "Registro de Comite";
         $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
-        $this->load->view('principal_view', $datos_plantilla);  
+        $this->load->view('plantilla_view', $datos_plantilla);  
     }
 }
  
