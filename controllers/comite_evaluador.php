@@ -21,9 +21,9 @@ class Comite_evaluador extends CI_Controller {
     {
         if($this->session->userdata('logged_in'))
         {
-            $datos_plantilla['titulo'] = "Información de Posgrados";
-            $datos_plantilla['contenido'] = $this->load->view('menu_administrador_view',' ',TRUE);
-            $this->load->view('plantilla_personal', $datos_plantilla);
+            $datos_plantilla['titulo'] = "Información de Proyectos";
+            //$datos_plantilla['contenido'] = $this->load->view('menu_administrador_view',' ',TRUE);
+            $this->load->view('plantilla_view', $datos_plantilla);
 
         }else
         {

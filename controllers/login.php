@@ -49,7 +49,7 @@ class Login extends CI_Controller {
                                  'numpersonal'  => $row->numpersonal,
                                  'nombre'       => $row->nombre,
                                  'comite'       => $row->integrante_comite,
-                                 //'perfil'       => $row->perfil_comite,
+                                 'perfil'       => $row->perfil_comite,
                                  'logged_in'    => TRUE
                                 );
                 $this->session->set_userdata($newdata);
@@ -60,7 +60,7 @@ class Login extends CI_Controller {
                 }
                 else
                 {
-                    redirect('investigador');
+                    redirect('registro_proyecto');
                 }
             }
 

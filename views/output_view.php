@@ -19,7 +19,7 @@ foreach($css_files as $file): ?>
 </div>
 
 <ol class="breadcrumb">
- 	<?php echo $barra_navegacion; ?>
+ 	<?php //echo $barra_navegacion; ?>
 </ol>
 
     <div>
