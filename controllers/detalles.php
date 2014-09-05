@@ -15,11 +15,12 @@ class Detalles extends CI_Controller {
  
     }
  
-    public function index()
+    public function agrega_detalle($id)
     { if ($this->session->userdata('logged_in'))
       {
+        $this->grocery_crud->where('proyecto_idproyecto', $id);
         $this->grocery_crud->set_table('detalles_proyecto');
-        $this->grocery_crud->set_subject('detalles');
+        $this->grocery_crud->set_subject('Detalles');        
         $this->grocery_crud->required_fields('proyecto_idproyecto','descripcion','objetivo','justificacion');
         
         $output = $this->grocery_crud->display_as('proyecto_idproyecto','Nombre proyecto')
@@ -35,7 +36,6 @@ class Detalles extends CI_Controller {
     }
  
    
- 
     function _example_output($output = null)
  
     {

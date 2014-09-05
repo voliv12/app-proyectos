@@ -30,7 +30,8 @@ class Registro_proyecto extends CI_Controller {
         $output = $crud->display_as('folio','Folio')
                        ->display_as('nomproyec','Nombre del Proyecto') 
                        ->display_as('fecha_registro','Fecha de Registro'); 
-        $crud->unset_texteditor('nomproyec','full_text');                             
+        $crud->unset_texteditor('nomproyec','full_text');     
+        $crud->add_action('Detalles', '../assets/uploads/detalles.png', 'detalles/agrega_detalle');                             
         $output = $crud->render();
         $this->_example_output($output);
       }
