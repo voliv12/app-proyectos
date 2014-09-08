@@ -21,13 +21,11 @@ class Detalles extends CI_Controller {
         $this->grocery_crud->where('proyecto_idproyecto', $id);
         $this->grocery_crud->set_table('detalles_proyecto');
         $this->grocery_crud->set_subject('Detalles');        
-        $this->grocery_crud->required_fields('proyecto_idproyecto','descripcion','objetivo','justificacion');
-        
-        $output = $this->grocery_crud->display_as('proyecto_idproyecto','Nombre proyecto')
-                                     ->display_as('descripcion','Descrición') 
+        $this->grocery_crud->required_fields('descripcion','objetivo','justificacion');
+        $output = $this->grocery_crud->display_as('descripcion','Descrición') 
                                      ->display_as('objetivo','Objetivo') 
                                      ->display_as('justificacion','Justificación');
-        
+        $crud->unset_add();
         $output = $this->grocery_crud->render();
         $this->_example_output($output);   
       }

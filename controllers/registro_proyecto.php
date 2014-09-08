@@ -26,12 +26,16 @@ class Registro_proyecto extends CI_Controller {
         $crud->set_subject('Proyecto');
         $crud->required_fields('numpersonal','folio','nomproyec','fecha_registro');
         $crud->columns( 'folio','nomproyec','fecha_registro');
+        $crud->callback_column('folio',array($this,'folio_ics'));
         $crud->field_type('numpersonal', 'hidden',$this->numpersonal); 
         $output = $crud->display_as('folio','Folio')
                        ->display_as('nomproyec','Nombre del Proyecto') 
                        ->display_as('fecha_registro','Fecha de Registro'); 
         $crud->unset_texteditor('nomproyec','full_text');     
-        $crud->add_action('Detalles', '../assets/uploads/detalles.png', 'detalles/agrega_detalle');                             
+        $crud->add_action('Detalles', '../assets/uploads/detalles.png', 'detalles/agrega_detalle');
+        $crud->callback_after_insert(array($this, 'insert_detalles'));
+        $crud->callback_after_update(array($this, 'insert_detalles'));
+
         $output = $crud->render();
         $this->_example_output($output);
       }
@@ -39,6 +43,22 @@ class Registro_proyecto extends CI_Controller {
              }   
     }
 
+function folio_ics($value, $row)
+{
+    return ' ICS-'.$value;
+}
+
+function insert_detalles($post_array,$primary_key)
+{
+    $user_logs_insert = array(
+        "proyecto_idproyecto" => $primary_key,
+        
+    );
+ 
+    $this->db->insert('detalles_proyecto',$user_logs_insert);
+ 
+    return true;
+}
 
 
     function _example_output($output = null)
