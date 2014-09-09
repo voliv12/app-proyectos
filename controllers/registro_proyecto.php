@@ -32,9 +32,12 @@ class Registro_proyecto extends CI_Controller {
                        ->display_as('nomproyec','Nombre del Proyecto') 
                        ->display_as('fecha_registro','Fecha de Registro'); 
         $crud->unset_texteditor('nomproyec','full_text');     
-        $crud->add_action('Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
+        $crud->add_action('Agregar Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
         $crud->callback_after_insert(array($this, 'insert_detalles'));
         $crud->callback_after_update(array($this, 'insert_detalles'));
+        $crud->unset_delete();
+        $crud->unset_export();
+        $crud->unset_print();
 
         $output = $crud->render();
         $this->_example_output($output);
@@ -51,7 +54,7 @@ function folio_ics($value, $row)
 function insert_detalles($post_array,$primary_key)
 {
     $user_logs_insert = array(
-        "proyecto_folio" => $primary_key,
+        "proyecto_idproyecto" => $primary_key,
         
     );
  
