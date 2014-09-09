@@ -32,7 +32,7 @@ class Registro_proyecto extends CI_Controller {
                        ->display_as('nomproyec','Nombre del Proyecto') 
                        ->display_as('fecha_registro','Fecha de Registro'); 
         $crud->unset_texteditor('nomproyec','full_text');     
-        $crud->add_action('Detalles', '../assets/uploads/detalles.png', 'detalles/agrega_detalle');
+        $crud->add_action('Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
         $crud->callback_after_insert(array($this, 'insert_detalles'));
         $crud->callback_after_update(array($this, 'insert_detalles'));
 
