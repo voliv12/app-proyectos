@@ -51,7 +51,7 @@ function folio_ics($value, $row)
 function insert_detalles($post_array,$primary_key)
 {
     $user_logs_insert = array(
-        "proyecto_idproyecto" => $primary_key,
+        "proyecto_folio" => $primary_key,
         
     );
  

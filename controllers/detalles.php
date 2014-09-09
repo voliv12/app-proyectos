@@ -17,23 +17,39 @@ class Detalles extends CI_Controller {
  
     public function agrega_detalle($id)
     { if ($this->session->userdata('logged_in'))
-      {
-        $this->grocery_crud->where('proyecto_idproyecto', $id);
-        $this->grocery_crud->set_table('detalles_proyecto');
-        $this->grocery_crud->set_subject('Detalles');        
-        $this->grocery_crud->required_fields('descripcion','objetivo','justificacion');
-        $output = $this->grocery_crud->display_as('descripcion','Descrición') 
-                                     ->display_as('objetivo','Objetivo') 
-                                     ->display_as('justificacion','Justificación');
+      { 
+        $crud = new grocery_CRUD();
+        $crud->where('proyecto_folio', $this->desconcatena($id));
+        $crud->set_table('detalles_proyecto');
+        $crud->set_subject('Detalles');  
+        $crud->columns( 'proyecto_folio','descripcion');      
+        $crud->required_fields('descripcion','objetivo','justificacion');
+        $output = $crud->display_as('descripcion','Descrición') 
+                       ->display_as('objetivo','Objetivo') 
+                       ->display_as('proyecto_folio','Folio') 
+                       ->display_as('justificacion','Justificación');
+        $crud->callback_column('proyecto_folio',array($this,'folio_ics'));
+
         $crud->unset_add();
-        $output = $this->grocery_crud->render();
+        $output = $crud->render();
         $this->_example_output($output);   
       }
              else { redirect('login');
              }    
     }
  
-   
+
+
+    function folio_ics($value, $row)
+    {
+        return ' ICS-'.$value;
+    }
+
+    function desconcatena($id){
+    list($ics, $id) = explode("-", $id);
+        return $id;
+    }   
+
     function _example_output($output = null)
  
     {
