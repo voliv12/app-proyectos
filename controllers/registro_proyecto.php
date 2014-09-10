@@ -32,9 +32,12 @@ class Registro_proyecto extends CI_Controller {
         $crud->unset_texteditor('nomproyec','full_text');
         $crud->add_action('Agregar Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
         $crud->callback_after_insert(array($this, 'insert_folio'));
+        $crud->callback_after_update(array($this, 'insert_folio'));
         $crud->callback_after_insert(array($this, 'insert_detalles'));
         $crud->callback_after_update(array($this, 'insert_detalles'));
-        //$crud->callback_column('folio',array($this,'folio_ics'));
+       // $crud->set_relation('folio','folioproyecto','folio');
+
+       // $crud->callback_column('folio',array($this,'folio_ics'));
         $crud->unset_delete();
         $crud->unset_export();
         $crud->unset_print();
@@ -54,7 +57,7 @@ function folio_ics($value, $row)
 function insert_detalles($post_array,$primary_key)
 {
     $detalles = array(
-        "proyecto_idproyecto" => $primary_key,
+        "proyecto_idproyecto" => $primary_key
 
     );
 
@@ -62,17 +65,30 @@ function insert_detalles($post_array,$primary_key)
 
     return true;
 }
-
 function insert_folio($post_array,$primary_key)
 {
+    $fol= "ICS-".$primary_key;
+    $detalles = array(
+        "folio"=>$fol,
+        "proyecto_idproyecto" => $primary_key
+
+    );
+
+    $this->db->insert('folioproyecto',$detalles);
+
+    return true;
+}
+
+/*function insert_folio($post_array,$primary_key)
+{
     $folio = array(
-        "folio" => $primary_key
+        "folio" => mysql_insert_id()
     );
 
     $this->db->update('proyecto',$folio,array('idproyecto' => $primary_key));
 
     return true;
-}
+}*/
 
 
     function _example_output($output = null)
