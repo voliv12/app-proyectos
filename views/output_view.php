@@ -17,7 +17,12 @@ foreach($css_files as $file): ?>
 <div class="container-fluid">
         <h3><a><?php echo $titulo_tabla; ?></a></h3>
 </div>
-
+<div style="width:300%; text-align:center; padding-left: 40%;">
+<ul class="nav nav-pills">
+  <li><a href=" ">Link uno</a></li>
+  <li><a href=" ">Link dos</a></li>
+</ul>
+</div>
 <ol class="breadcrumb">
  	<?php //echo $barra_navegacion; ?>
 </ol>

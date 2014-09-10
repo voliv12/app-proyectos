@@ -24,17 +24,17 @@ class Registro_proyecto extends CI_Controller {
         $crud->where('numpersonal', $this->numpersonal);
         $crud->set_table('proyecto');
         $crud->set_subject('Proyecto');
-        $crud->required_fields('numpersonal','folio','nomproyec','fecha_registro');
+        $crud->required_fields('numpersonal','nomproyec','fecha_registro');
         $crud->columns( 'folio','nomproyec','fecha_registro');
-        $crud->callback_column('folio',array($this,'folio_ics'));
-        $crud->field_type('numpersonal', 'hidden',$this->numpersonal); 
-        $output = $crud->display_as('folio','Folio')
-                       ->display_as('nomproyec','Nombre del Proyecto') 
-                       ->display_as('fecha_registro','Fecha de Registro'); 
-        $crud->unset_texteditor('nomproyec','full_text');     
+        $crud->field_type('numpersonal', 'hidden',$this->numpersonal);
+        $output = $crud->display_as('nomproyec','Nombre del Proyecto')
+                       ->display_as('fecha_registro','Fecha de Registro');
+        $crud->unset_texteditor('nomproyec','full_text');
         $crud->add_action('Agregar Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
+        $crud->callback_after_insert(array($this, 'insert_folio'));
         $crud->callback_after_insert(array($this, 'insert_detalles'));
         $crud->callback_after_update(array($this, 'insert_detalles'));
+        //$crud->callback_column('folio',array($this,'folio_ics'));
         $crud->unset_delete();
         $crud->unset_export();
         $crud->unset_print();
@@ -43,7 +43,7 @@ class Registro_proyecto extends CI_Controller {
         $this->_example_output($output);
       }
      else { redirect('login');
-             }   
+             }
     }
 
 function folio_ics($value, $row)
@@ -53,13 +53,24 @@ function folio_ics($value, $row)
 
 function insert_detalles($post_array,$primary_key)
 {
-    $user_logs_insert = array(
+    $detalles = array(
         "proyecto_idproyecto" => $primary_key,
-        
+
     );
- 
-    $this->db->insert('detalles_proyecto',$user_logs_insert);
- 
+
+    $this->db->insert('detalles_proyecto',$detalles);
+
+    return true;
+}
+
+function insert_folio($post_array,$primary_key)
+{
+    $folio = array(
+        "folio" => $primary_key
+    );
+
+    $this->db->update('proyecto',$folio,array('idproyecto' => $primary_key));
+
     return true;
 }
 
