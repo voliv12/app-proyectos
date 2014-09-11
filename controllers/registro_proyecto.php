@@ -25,17 +25,18 @@ class Registro_proyecto extends CI_Controller {
         $crud->set_table('proyecto');
         $crud->set_subject('Proyecto');
         $crud->required_fields('numpersonal','nomproyec','fecha_registro');
-        $crud->columns( 'folio','nomproyec','fecha_registro');
+        $crud->columns( 'idproyecto','nomproyec','fecha_registro');
         $crud->field_type('numpersonal', 'hidden',$this->numpersonal);
         $output = $crud->display_as('nomproyec','Nombre del Proyecto')
                        ->display_as('fecha_registro','Fecha de Registro');
         $crud->unset_texteditor('nomproyec','full_text');
         $crud->add_action('Agregar Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
-        $crud->callback_after_insert(array($this, 'insert_folio'));
-        $crud->callback_after_update(array($this, 'insert_folio'));
+
         $crud->callback_after_insert(array($this, 'insert_detalles'));
         $crud->callback_after_update(array($this, 'insert_detalles'));
-       // $crud->set_relation('folio','folioproyecto','folio');
+        $crud->callback_after_insert(array($this, 'insert_folio'));
+        $crud->callback_after_update(array($this, 'insert_folio'));
+        $crud->set_relation('idproyecto','folioproyecto','folio');
 
        // $crud->callback_column('folio',array($this,'folio_ics'));
         $crud->unset_delete();
@@ -65,30 +66,21 @@ function insert_detalles($post_array,$primary_key)
 
     return true;
 }
+
+
 function insert_folio($post_array,$primary_key)
 {
-    $fol= "ICS-".$primary_key;
-    $detalles = array(
-        "folio"=>$fol,
-        "proyecto_idproyecto" => $primary_key
-
+    $foli= "ICS-".$primary_key;
+    $fol = array(
+        "proyecto_idproyecto" => $primary_key,
+         "folio"=>$foli
     );
 
-    $this->db->insert('folioproyecto',$detalles);
+    $this->db->insert('folioproyecto',$fol);
 
     return true;
 }
 
-/*function insert_folio($post_array,$primary_key)
-{
-    $folio = array(
-        "folio" => mysql_insert_id()
-    );
-
-    $this->db->update('proyecto',$folio,array('idproyecto' => $primary_key));
-
-    return true;
-}*/
 
 
     function _example_output($output = null)
