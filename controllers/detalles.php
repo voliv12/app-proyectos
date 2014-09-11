@@ -25,12 +25,16 @@ class Detalles extends CI_Controller {
         $crud->set_subject('Detalles');  
         $crud->columns( 'proyecto_idproyecto','descripcion');      
         $crud->required_fields('descripcion','objetivo','justificacion');
+        $crud-> unset_edit_fields ( 'proyecto_idproyecto') ;
         $output = $crud->display_as('descripcion','Descripción') 
                        ->display_as('objetivo','Objetivo') 
                        ->display_as('proyecto_idproyecto','Folio') 
                        ->display_as('justificacion','Justificación');
         $crud->callback_column('proyecto_idproyecto',array($this,'folio_ics'));
 
+        $crud->unset_delete();
+        $crud->unset_export();
+        $crud->unset_print();
         $crud->unset_add();
         $output = $crud->render();
         $this->_example_output($output);   
