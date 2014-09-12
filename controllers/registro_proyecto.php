@@ -27,7 +27,8 @@ class Registro_proyecto extends CI_Controller {
         $crud->required_fields('numpersonal','nomproyec','fecha_registro');
         $crud->columns( 'idproyecto','nomproyec','fecha_registro');
         $crud->field_type('numpersonal', 'hidden',$this->numpersonal);
-        $output = $crud->display_as('nomproyec','Nombre del Proyecto')
+        $output = $crud->display_as('idproyecto','Folio')
+                       ->display_as('nomproyec','Nombre del Proyecto')
                        ->display_as('fecha_registro','Fecha de Registro');
         $crud->unset_texteditor('nomproyec','full_text');
         $crud->add_action('Agregar Detalles', 'assets/imagenes/detalles.png', 'detalles/agrega_detalle');
@@ -47,6 +48,8 @@ class Registro_proyecto extends CI_Controller {
      else { redirect('login');
              }
     }
+
+
 
 function folio_ics($value, $row)
 {

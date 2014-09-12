@@ -56,7 +56,7 @@ class Login extends CI_Controller {
 
                 if($row->integrante_comite == TRUE)
                 {
-                    redirect('comite_evaluador'); //cambiar
+                    redirect('proyecto'); //cambiar
                 }
                 else
                 {

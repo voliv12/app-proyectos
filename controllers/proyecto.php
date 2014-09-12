@@ -22,11 +22,16 @@ class Proyecto extends CI_Controller {
         $crud = new grocery_CRUD();
         $crud->set_table('proyecto');
         $crud->set_subject('Proyecto');
-        $crud->field_type('numpersonal', 'hidden',$this->numpersonal); 
-        $output = $crud->display_as('folio','Folio')
-                       ->display_as('nomproyec','Nombre del Proyecto') 
-                       ->display_as('fecha_registro','Fecha de Registro'); 
-        $crud->unset_texteditor('nomproyec','full_text');                             
+        $output = $crud->display_as('idproyecto','Folio')
+                       ->display_as('numpersonal','Nombre')
+                       ->display_as('nomproyec','Nombre del Proyecto')
+                       ->display_as('fecha_registro','Fecha de Registro');
+        $crud->add_action('Agregar Dictamen', 'assets/imagenes/dictamen.png', 'dictamen');
+        $crud->set_relation('numpersonal','investigador','Nombre');
+        $crud->unset_delete();
+        $crud->unset_export();
+        $crud->unset_print();
+        $crud->unset_edit();                            
         $output = $crud->render();
         $this->_example_output($output);
       }
@@ -40,8 +45,8 @@ class Proyecto extends CI_Controller {
  
     {
         $output->titulo_tabla = "Registro de Proyectos";
-        $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
-        $this->load->view('plantilla_view', $datos_plantilla);  
+        $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);
+        $this->load->view('plantilla_view', $datos_plantilla);
     }
 }
  

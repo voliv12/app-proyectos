@@ -24,14 +24,17 @@ class Investigador extends CI_Controller {
         $crud->set_subject('Investigador');
         $crud->required_fields('numpersonal','nombre','password','correo');
         
-        $output = $crud->display_as('nombre','Nombre')
-                                     ->display_as('password','Contraseña')
-                                     ->display_as('nomproyec','Nombre del Proyecto') 
-                                     ->display_as('correo','Correo')
-                                     ->display_as('integrante_comite','Integrante del comite')
-                                     ->display_as('perfil_comite','Perfil dentro del comite'); 
+        $output = $crud->display_as('nombre','Nombre Completo')
+                       ->display_as('password','Contraseña')
+                       ->display_as('numpersonal','Numero de Personal')
+                       ->display_as('integrante_comite','Integrante del comite')
+                       ->display_as('perfil_comite','Perfil dentro del comite'); 
         $crud->field_type('integrante_comite', 'true_false', array('No', 'SI'));
-
+        $crud->set_rules('correo','Correo','valid_email');
+        $crud->columns('numpersonal','nombre','correo','perfil_comite');
+        $crud-> field_type ('password', 'password' ) ;
+        $crud->unset_print();
+        $crud->unset_export();
         $crud->callback_before_insert(array($this,'encrypt_password_callback'));
         $crud->callback_before_update(array($this,'encrypt_password_callback'));
                                      
@@ -47,7 +50,7 @@ class Investigador extends CI_Controller {
     function _example_output($output = null)
  
     {
-        $output->titulo_tabla = "Registro de Investigador";
+        $output->titulo_tabla = "Alta de Investigador";
         $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
         $this->load->view('plantilla_view', $datos_plantilla);  
     }

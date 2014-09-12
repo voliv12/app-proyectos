@@ -15,14 +15,19 @@ class Dictamen extends CI_Controller {
  
     }
  
-    public function index()
+    public function dictamen_proyecto($id)
     {
      if ($this->session->userdata('logged_in'))
      {
         $crud = new grocery_CRUD();
+        $crud->where('proyecto_idproyecto', $id);
         $crud->set_table('proyecto_comite');
         $crud->set_subject('Dictamen');
-        $output = $crud->display_as('proyecto_idproyecto','Nombre del proyecto')->display_as('comite_idcomite','Nombre del comite')->display_as('dictamen','Dictamen')->display_as('fecha_dictamen','Fecha del Dictamen')->display_as('archivo_dictamen','Dictamen'); 
+        $output = $crud->display_as('proyecto_idproyecto','Nombre del proyecto')
+                       ->display_as('comite_idcomite','Nombre del comite')
+                       ->display_as('dictamen','Dictamen')
+                       ->display_as('fecha_dictamen','Fecha del Dictamen')
+                       ->display_as('archivo_dictamen','Dictamen'); 
         
         $output = $crud->render();
         $this->_example_output($output);   
@@ -36,7 +41,7 @@ class Dictamen extends CI_Controller {
     function _example_output($output = null)
  
     {
-        $output->titulo_tabla = "Registro de Comite";
+        $output->titulo_tabla = "Registro de Dictamen";
         $datos_plantilla['contenido'] =  $this->load->view('output_view', $output, TRUE);  
         $this->load->view('plantilla_view', $datos_plantilla);  
     }
